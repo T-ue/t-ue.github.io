@@ -9,9 +9,46 @@
     <!-- Optional: Link to additional JavaScript or other resources -->
 </head>
 <body>
-    <iframe width="1920" height="1080" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=aCqpmwmkkKcCj_AR&amp;autoplay=1&amp;controls=0" 
-    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
-    gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="video-container">
+        <iframe id="video-frame" width="1920" height="1080" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=aCqpmwmkkKcCj_AR&amp;autoplay=0&amp;controls=0" 
+        title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; 
+        gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <!-- Optional: Play button overlay -->
+        <div class="play-button"></div>
+    </div>
+
+    <!-- Optional: JavaScript to handle autoplay after scroll -->
+    <script>
+        var video = document.getElementById('video-frame');
+        var playButton = document.querySelector('.play-button');
+        var hasStartedPlaying = false;
+
+        // Function to start video playback
+        function startVideoPlayback() {
+            if (!hasStartedPlaying) {
+                video.src += '&autoplay=1';
+                hasStartedPlaying = true;
+                playButton.style.display = 'none'; // Hide play button after starting playback
+            }
+        }
+
+        // Event listener to start video playback when user scrolls
+        window.addEventListener('scroll', function() {
+            var videoTop = video.getBoundingClientRect().top;
+            var windowHeight = window.innerHeight;
+
+            // Start video playback when the top of the video is within the viewport
+            if (videoTop < windowHeight) {
+                startVideoPlayback();
+            }
+        });
+
+        // Optional: Add event listener to play button
+        playButton.addEventListener('click', function() {
+            startVideoPlayback();
+        });
+    </script>
 </body>
 </html>
+
 
